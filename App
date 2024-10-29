@@ -1,0 +1,541 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTec Quantum Cryptographic Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <img src="assets/logo.png" alt="DTec Logo" id="logo">
+        </div>
+        <h1>Welcome to DTec Quantum Cryptographic Tool</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li>
+                    <select id="crypto-options">
+                        <option value="">Choose Encryption</option>
+                        <option value="rsa">RSA Encryption</option>
+                        <option value="aes">AES Encryption</option>
+                        <option value="ecc">ECC Encryption</option>
+                    </select>
+                </li>
+                <li><a href="#kyber-dilithium">Advanced Features</a></li>
+                <li><a href="#contact">Contact Support</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <!-- User Registration Section -->
+        <section id="register">
+            <h2>Register for Secure Access</h2>
+            <form id="register-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                
+                <button type="submit">Register</button>
+            </form>
+        </section>
+
+        <!-- Cryptography Section -->
+        <section id="crypto">
+            <h2>Cryptographic Operations</h2>
+            <textarea id="input-message" placeholder="Enter your message"></textarea>
+            <button id="encrypt-btn">Encrypt</button>
+            <textarea id="output-message" placeholder="Encrypted message" readonly></textarea>
+        </section>
+
+        <!-- AI/ML Monitoring -->
+        <section id="security-monitoring">
+            <h2>Security Monitoring</h2>
+            <p>AI & Machine Learning are actively monitoring for intrusions.</p>
+            <div id="intrusion-warning"></div>
+        </section>
+
+        <!-- Stripe Payment Section -->
+        <section id="payment">
+            <h2>Purchase Secure Features</h2>
+            <button id="stripe-btn">Pay with Stripe</button>
+        </section>
+    </main>
+
+    <!-- Footer with Contact Info -->
+    <footer id="contact">
+        <h2>Contact Support</h2>
+        <p>Email: support@dtec.com</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+PK6Ð’ç›
+  ›
+  PK    •žXY             	 untitled/src/style.cssUT Š¥g/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1f1f1f;
+    color: #eaeaea;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #00a86b; /* DTec Brand Color */
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #ffffff;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a, select {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+header .header-logo img {
+    height: 50px;
+    width: auto;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin: 20px 0;
+}
+
+label, textarea, input, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+}
+
+textarea {
+    height: 100px;
+}
+
+button {
+    background-color: #00a86b;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+button:hover {
+    background-color: #007a57;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #0f0f0f;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    color: #a0a0a0;
+}
+PKQ>UW  W  PK    •žXY             	 untitled/src/script.jsUT Š¥g// WebCrypto API for encryption
+const cryptoOptions = document.getElementById('crypto-options');
+const encryptBtn = document.getElementById('encrypt-btn');
+const inputMessage = document.getElementById('input-message');
+const outputMessage = document.getElementById('output-message');
+
+// AES Example
+async function aesEncrypt(message) {
+    const key = await crypto.subtle.generateKey(
+        {
+            name: "AES-GCM",
+            length: 256
+        },
+        true,
+        ["encrypt", "decrypt"]
+    );
+    const encodedMessage = new TextEncoder().encode(message);
+    const encrypted = await crypto.subtle.encrypt(
+        {
+            name: "AES-GCM",
+            iv: crypto.getRandomValues(new Uint8Array(12)) // initialization vector
+        },
+        key,
+        encodedMessage
+    );
+    return encrypted;
+}
+
+// RSA Example (simplified for demo)
+async function rsaEncrypt(message) {
+    const keyPair = await crypto.subtle.generateKey(
+        {
+            name: "RSA-OAEP",
+            modulusLength: 2048,
+            publicExponent: new Uint8Array([1, 0, 1]),
+            hash: { name: "SHA-256" }
+        },
+        true,
+        ["encrypt", "decrypt"]
+    );
+    const encodedMessage = new TextEncoder().encode(message);
+    const encrypted = await crypto.subtle.encrypt(
+        {
+            name: "RSA-OAEP"
+        },
+        keyPair.publicKey,
+        encodedMessage
+    );
+    return encrypted;
+}
+
+// Handle encryption based on selected option
+encryptBtn.addEventListener('click', async () => {
+    const message = inputMessage.value;
+    let encrypted;
+    
+    switch (cryptoOptions.value) {
+        case 'aes':
+            encrypted = await aesEncrypt(message);
+            break;
+        case 'rsa':
+            encrypted = await rsaEncrypt(message);
+            break;
+        case 'ecc':
+            // ECC encryption (to be added)
+            break;
+        default:
+            alert('Please select a cryptography option');
+            return;
+    }
+    outputMessage.value = encrypted ? btoa(String.fromCharCode.apply(null, new Uint8Array(encrypted))) : 'Error';
+});
+
+// Simulate AI/ML intrusion detection (mockup)
+const intrusionWarning = document.getElementById('intrusion-warning');
+function detectIntrusion() {
+    const isIntrusion = Math.random() > 0.8; // Simulated probability
+    if (isIntrusion) {
+        intrusionWarning.innerText = 'Warning: Intrusion detected!';
+        intrusionWarning.style.color = 'red';
+    } else {
+        intrusionWarning.innerText = 'No intrusion detected.';
+    }
+}
+setInterval(detectIntrusion, 5000); // Check for intrusions every 5 seconds
+
+// Stripe Payment Integration
+const stripeBtn = document.getElementById('stripe-btn');
+stripeBtn.addEventListener('click', () => {
+    // Stripe payment logic (this is a placeholder)
+    window.location.href = "https://stripe.com/pay"; // Redirect to Stripe
+});
+
+// Secure login and registration
+const registerForm = document.getElementById('register-form');
+registerForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    alert(`Registered user: ${username}`);
+});
+PKe=¤8¦  ¦  PK    •žXY             	 untitled/dist/index.htmlUT Š¥g<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Untitled</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTec Quantum Cryptographic Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <img src="assets/logo.png" alt="DTec Logo" id="logo">
+        </div>
+        <h1>Welcome to DTec Quantum Cryptographic Tool</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li>
+                    <select id="crypto-options">
+                        <option value="">Choose Encryption</option>
+                        <option value="rsa">RSA Encryption</option>
+                        <option value="aes">AES Encryption</option>
+                        <option value="ecc">ECC Encryption</option>
+                    </select>
+                </li>
+                <li><a href="#kyber-dilithium">Advanced Features</a></li>
+                <li><a href="#contact">Contact Support</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <!-- User Registration Section -->
+        <section id="register">
+            <h2>Register for Secure Access</h2>
+            <form id="register-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                
+                <button type="submit">Register</button>
+            </form>
+        </section>
+
+        <!-- Cryptography Section -->
+        <section id="crypto">
+            <h2>Cryptographic Operations</h2>
+            <textarea id="input-message" placeholder="Enter your message"></textarea>
+            <button id="encrypt-btn">Encrypt</button>
+            <textarea id="output-message" placeholder="Encrypted message" readonly></textarea>
+        </section>
+
+        <!-- AI/ML Monitoring -->
+        <section id="security-monitoring">
+            <h2>Security Monitoring</h2>
+            <p>AI & Machine Learning are actively monitoring for intrusions.</p>
+            <div id="intrusion-warning"></div>
+        </section>
+
+        <!-- Stripe Payment Section -->
+        <section id="payment">
+            <h2>Purchase Secure Features</h2>
+            <button id="stripe-btn">Pay with Stripe</button>
+        </section>
+    </main>
+
+    <!-- Footer with Contact Info -->
+    <footer id="contact">
+        <h2>Contact Support</h2>
+        <p>Email: support@dtec.com</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
+PKU"ÞŽ«  «  PK    •žXY             	 untitled/dist/style.cssUT Š¥g/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1f1f1f;
+    color: #eaeaea;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #00a86b; /* DTec Brand Color */
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #ffffff;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a, select {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+header .header-logo img {
+    height: 50px;
+    width: auto;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin: 20px 0;
+}
+
+label, textarea, input, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+}
+
+textarea {
+    height: 100px;
+}
+
+button {
+    background-color: #00a86b;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+button:hover {
+    background-color: #007a57;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #0f0f0f;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    color: #a0a0a0;
+}PK›^4V  V  PK    •žXY             	 untitled/dist/script.jsUT Š¥g// WebCrypto API for encryption
+const cryptoOptions = document.getElementById('crypto-options');
+const encryptBtn = document.getElementById('encrypt-btn');
+const inputMessage = document.getElementById('input-message');
+const outputMessage = document.getElementById('output-message');
+
+// AES Example
+async function aesEncrypt(message) {
+    const key = await crypto.subtle.generateKey(
+        {
+            name: "AES-GCM",
+            length: 256
+        },
+        true,
+        ["encrypt", "decrypt"]
+    );
+    const encodedMessage = new TextEncoder().encode(message);
+    const encrypted = await crypto.subtle.encrypt(
+        {
+            name: "AES-GCM",
+            iv: crypto.getRandomValues(new Uint8Array(12)) // initialization vector
+        },
+        key,
+        encodedMessage
+    );
+    return encrypted;
+}
+
+// RSA Example (simplified for demo)
+async function rsaEncrypt(message) {
+    const keyPair = await crypto.subtle.generateKey(
+        {
+            name: "RSA-OAEP",
+            modulusLength: 2048,
+            publicExponent: new Uint8Array([1, 0, 1]),
+            hash: { name: "SHA-256" }
+        },
+        true,
+        ["encrypt", "decrypt"]
+    );
+    const encodedMessage = new TextEncoder().encode(message);
+    const encrypted = await crypto.subtle.encrypt(
+        {
+            name: "RSA-OAEP"
+        },
+        keyPair.publicKey,
+        encodedMessage
+    );
+    return encrypted;
+}
+
+// Handle encryption based on selected option
+encryptBtn.addEventListener('click', async () => {
+    const message = inputMessage.value;
+    let encrypted;
+    
+    switch (cryptoOptions.value) {
+        case 'aes':
+            encrypted = await aesEncrypt(message);
+            break;
+        case 'rsa':
+            encrypted = await rsaEncrypt(message);
+            break;
+        case 'ecc':
+            // ECC encryption (to be added)
+            break;
+        default:
+            alert('Please select a cryptography option');
+            return;
+    }
+    outputMessage.value = encrypted ? btoa(String.fromCharCode.apply(null, new Uint8Array(encrypted))) : 'Error';
+});
+
+// Simulate AI/ML intrusion detection (mockup)
+const intrusionWarning = document.getElementById('intrusion-warning');
+function detectIntrusion() {
+    const isIntrusion = Math.random() > 0.8; // Simulated probability
+    if (isIntrusion) {
+        intrusionWarning.innerText = 'Warning: Intrusion detected!';
+        intrusionWarning.style.color = 'red';
+    } else {
+        intrusionWarning.innerText = 'No intrusion detected.';
+    }
+}
+setInterval(detectIntrusion, 5000); // Check for intrusions every 5 seconds
+
+// Stripe Payment Integration
+const stripeBtn = document.getElementById('stripe-btn');
+stripeBtn.addEventListener('click', () => {
+    // Stripe payment logic (this is a placeholder)
+    window.location.href = "https://stripe.com/pay"; // Redirect to Stripe
+});
+
+// Secure login and registration
+const registerForm = document.getElementById('register-form');
+registerForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    alert(`Registered user: ${username}`);
+});PKŽÑ•s¥  ¥  PK    •žXYËISàˆ   ˆ    	         ÿ    untitled/README.mdUT Š¥gPK    •žXY‹§Z  Z   	         ÿÑ   untitled/LICENSE.txtUT Š¥gPK    •žXY6Ð’ç›
+  ›
+   	         ÿv  untitled/src/index.htmlUT Š¥gPK    •žXYQ>UW  W   	 
