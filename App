@@ -537,5 +537,4 @@ registerForm.addEventListener('submit', (event) => {
     const password = document.getElementById('password').value;
     alert(`Registered user: ${username}`);
 });PKŽÑ•s¥  ¥  PK    •žXYËISàˆ   ˆ    	         ÿ    untitled/README.mdUT Š¥gPK    •žXY‹§Z  Z   	         ÿÑ   untitled/LICENSE.txtUT Š¥gPK    •žXY6Ð’ç›
-  ›
-   	         ÿv  untitled/src/index.htmlUT Š¥gPK    •žXYQ>UW  W   	 
+  › 	 
