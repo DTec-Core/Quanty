@@ -15,13 +15,51 @@
         <h1>DTec Quantum Cryptographic Tool</h1>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#dashboard">Security Dashboard</a></li>
-                <li><a href="#messages">Messages</a></li>
+                <<li><a href="#home">Home</a></li>
+                <li>
+                    <select id="crypto-options">
+                        <option value="">Choose Encryption</option>
+                        <option value="rsa">RSA Encryption</option>
+                        <option value="aes">AES Encryption</option>
+                        <option value="ecc">ECC Encryption</option>
+                    </select>
+                </li>
+                <li><a href="#kyber-dilithium">Advanced Features</a></li>
                 <li><a href="#contact">Contact Support</a></li>
             </ul>
         </nav>
     </header>
+
+!-- Main Section -->
+    <main>
+        <!-- User Registration Section -->
+        <section id="register">
+            <h2>Register for Secure Access</h2>
+            <form id="register-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                
+                <button type="submit">Register</button>
+            </form>
+        </section>
+
+<!-- Cryptography Section -->
+        <section id="crypto">
+            <h2>Cryptographic Operations</h2>
+            <textarea id="input-message" placeholder="Enter your message"></textarea>
+            <button id="encrypt-btn">Encrypt</button>
+            <textarea id="output-message" placeholder="Encrypted message" readonly></textarea>
+        </section>
+
+        <!-- AI/ML Monitoring -->
+        <section id="security-monitoring">
+            <h2>Security Monitoring</h2>
+            <p>AI & Machine Learning are actively monitoring for intrusions.</p>
+            <div id="intrusion-warning"></div>
+        </section>
 
     <!-- Main Section with Added Dashboard and Chatbot -->
     <main>
@@ -49,6 +87,13 @@
                 </table>
             </div>
         </section>
+
+ <!-- Stripe Payment Section -->
+        <section id="payment">
+            <h2>Purchase Secure Features</h2>
+            <button id="stripe-btn">Pay with Stripe</button>
+        </section>
+    </main>
 
         <!-- Contact Form -->
         <section id="contact">
