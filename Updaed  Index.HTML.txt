@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTec Quantum Cryptographic Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="header-logo">
+            <img src="assets/logo.png" alt="DTec Logo" id="logo">
+        </div>
+        <h1>DTec Quantum Cryptographic Tool</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#dashboard">Security Dashboard</a></li>
+                <li><a href="#messages">Messages</a></li>
+                <li><a href="#contact">Contact Support</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section with Added Dashboard and Chatbot -->
+    <main>
+        <!-- Security Dashboard with Virus Count and Attack Log -->
+        <section id="dashboard">
+            <h2>Security Dashboard</h2>
+            <div class="dashboard-stats">
+                <p>Viruses Detected: <span id="virus-count">0</span></p>
+                <p>Threats Deleted: <span id="deleted-count">0</span></p>
+                <p>Attack Bots Destroyed: <span id="bots-count">0</span></p>
+            </div>
+            <div class="attack-log">
+                <h3>Attack Log</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Attack Type</th>
+                            <th>Origin IP</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attack-log-body">
+                        <!-- JavaScript will dynamically populate this -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section id="contact">
+            <h2>Contact Support</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" required></textarea>
+                
+                <button type="submit">Submit</button>
+            </form>
+            <p id="contact-confirm"></p>
+        </section>
+
+        <!-- Chatbot Integration (Basic Placeholder) -->
+        <section id="chatbot">
+            <h2>AI Chatbot</h2>
+            <div class="chat-window" id="chat-window">
+                <div id="chat-messages"></div>
+                <input type="text" id="chat-input" placeholder="Ask a question..." />
+                <button id="send-btn">Send</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
